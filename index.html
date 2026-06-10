@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arun V – CFD &amp; FSI Engineer · Mechanical Simulation</title>
+<title>Arun V – CFD &amp; FSI Engineer</title>
 <meta name="description" content="Arun Vijey – Mechanical engineer specialising in CFD, FEA and fluid–structure interaction. Project Associate at IIT Madras' Ballistics & High Speed Flow Laboratory.">
 <meta property="og:title" content="Arun V – CFD & FSI Engineer">
 <meta property="og:description" content="Live fluid–structure interaction, right on the page. CFD · FEA · Aerospace.">
@@ -161,7 +161,8 @@ header{position:relative;min-height:100svh;display:flex;align-items:flex-end;ove
 .hero-inner{position:relative;z-index:2;width:100%;padding-bottom:118px;pointer-events:none}
 /* keep only the interactive bits clickable; everything else lets the cursor
    reach the canvas so you can stir the flow behind the headline */
-.hero-cta,.hero-cta .btn{pointer-events:auto}
+.hero-cta{pointer-events:none}
+.hero-cta .btn{pointer-events:auto}
 .hero-tag{opacity:0;animation:rise .8s var(--ease) .1s forwards}
 h1{
   font-family:var(--disp);font-variation-settings:"wdth" 125;font-weight:800;
@@ -191,7 +192,7 @@ header:hover h1 .l2{background-size:100% 100%;-webkit-text-stroke-color:transpar
 .hero-desc{margin-left:auto}
 .hero-cta{justify-content:flex-end}
 @media(max-width:760px){
-  .hero-inner{text-align:left}
+  .hero-inner{text-align:left;padding-bottom:188px}
   .hero-desc{margin-left:0}
   .hero-cta{justify-content:flex-start}
 }
@@ -534,7 +535,7 @@ footer .mono b{color:var(--cold);font-weight:500}
   </div>
 
   <div class="wrap hero-inner">
-    <div class="hero-tag mono eyebrow">Mechanical Engineer – IIT Madras BHSFL</div>
+    <div class="hero-tag mono eyebrow">Mechanical Engineer – IIT Madras BHSF Lab</div>
     <h1>
       <span class="l1">Arun</span>
       <span class="l2">Vijey</span>
@@ -579,7 +580,7 @@ footer .mono b{color:var(--cold);font-weight:500}
         <div class="case-head"><span>CASE_SETUP · ARUN_V.cas</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="case-row"><span class="k">Degree</span><span class="v">B.E. Mechanical <small>· CGPA 8.62</small></span></div>
         <div class="case-row"><span class="k">Institute</span><span class="v" style="font-size:.95rem">Chennai Institute<br>of Technology <small>2021–25</small></span></div>
-        <div class="case-row"><span class="k">Current</span><span class="v" style="font-size:.95rem">IIT Madras – BHSFL</span></div>
+        <div class="case-row"><span class="k">Current</span><span class="v" style="font-size:.95rem">IIT Madras – BHSF Lab</span></div>
         <div class="case-row"><span class="k">Focus</span><span class="v accent">CFD · FEA · FSI</span></div>
         <div class="case-row"><span class="k">Base</span><span class="v">Chennai, IN <small>13.08°N</small></span></div>
       </div>
@@ -605,7 +606,7 @@ footer .mono b{color:var(--cold);font-weight:500}
         <div class="org">IIT Madras – Ballistics &amp; High Speed Flow Lab <span class="loc">/ Chennai</span></div>
         <ul>
           <li>Performed CFD &amp; structural simulations using ANSYS Fluent and LS-DYNA for ongoing project research.</li>
-          <li>Owned end-to-end CFD and FEA workflows – geometry prep, meshing, solver setup, post-processing and validation – delivering technical insight through clear documentation.</li>
+          <li>Conducted end-to-end CFD and FEA workflows – geometry prep, meshing, solver setup, post-processing and validation – delivering technical insight through clear documentation.</li>
         </ul>
       </div>
 
@@ -676,6 +677,17 @@ footer .mono b{color:var(--cold);font-weight:500}
           <div class="pmeta">Dec 2024 – Mar 2025 · Materials · Casting</div>
           <p>Developed aluminium matrix composites from aluminium scrap reinforced with yttria-stabilized zirconia. Used ultrasonic-assisted squeeze casting to enhance properties, then ran wear testing across conditions to evaluate performance.</p>
           <div class="chips"><span class="c-chip">Squeeze Casting</span><span class="c-chip">AMC</span><span class="c-chip">Wear Testing</span><span class="c-chip">Materials</span></div>
+        </div>
+      </article>
+
+      <article class="proj reveal" data-tilt>
+        <span class="badge">90% WATERPROOF</span>
+        <div class="proj-in">
+          <div class="pnum">PRJ_03 · UNDERWATER ROBOTICS</div>
+          <h3>Underwater Thruster Development</h3>
+          <div class="pmeta">Jun 2024 – Jul 2024 · CAD · CFD · Prototyping</div>
+          <p>Designed and built a cost-effective thruster for autonomous underwater vehicles (AUVs). Applied resin coatings to BLDC motors achieving up to 90% waterproofing efficiency. Fabricated components using 3D printing and validated performance through underwater testing.</p>
+          <div class="chips"><span class="c-chip">CFD</span><span class="c-chip">CAD</span><span class="c-chip">3D Printing</span><span class="c-chip">Electrical Systems</span></div>
         </div>
       </article>
 
@@ -1433,6 +1445,9 @@ canvas.addEventListener('pointermove',function(e){
   canvas.addEventListener(ev,function(){dragging=false;});
 });
 canvas.addEventListener('pointerleave',function(){dragging=false;probe.style.display='none';});
+/* on touch devices let vertical swipes scroll the page instead of trapping the
+   gesture on the full-screen canvas; horizontal drags still stir the flow */
+if(TOUCH)canvas.style.touchAction='pan-y';
 
 var probeTick=0;
 function showProbe(e,p){
@@ -1501,11 +1516,22 @@ function boot(){
 }
 
 /* visibility + resize */
+var heroVisible=true;
 document.addEventListener('visibilitychange',function(){
   if(REDUCED)return;
   if(document.hidden){cancelAnimationFrame(raf);lastT=0;}
-  else if(running){raf=requestAnimationFrame(loop);}
+  else if(running&&heroVisible){cancelAnimationFrame(raf);lastT=0;raf=requestAnimationFrame(loop);}
 });
+/* pause the solver while the hero is scrolled off-screen: saves battery and
+   stops scroll jank on phones where the sim would otherwise run forever */
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){
+    heroVisible=es[0].isIntersecting;
+    if(REDUCED||!running)return;
+    if(!heroVisible){cancelAnimationFrame(raf);lastT=0;}
+    else if(!document.hidden){cancelAnimationFrame(raf);lastT=0;raf=requestAnimationFrame(loop);}
+  },{threshold:0}).observe(hero);
+}
 var rsT;
 addEventListener('resize',function(){
   clearTimeout(rsT);
