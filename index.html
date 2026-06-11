@@ -888,6 +888,15 @@ footer .mono b{color:var(--cold);font-weight:500}
       <div class="mono">© 2026 ARUN VIJEY · <b>CFD · FEA · FSI</b></div>
       <div class="mono">SIMULATED IN CHENNAI · 13.08°N 80.27°E · <span id="footIter">t = 0</span></div>
     </footer>
+    <p class="mono reveal" style="margin-top:18px;color:var(--faint);letter-spacing:.06em;text-transform:none;font-size:.66rem;line-height:1.7;max-width:780px;margin-left:auto;margin-right:auto">
+      The background flow is built on the lattice-Boltzmann
+      <a href="https://physics.weber.edu/schroeder/fluids/" target="_blank" rel="noopener" style="color:var(--cold);text-decoration:underline">Fluid Dynamics Simulation</a>
+      by <a href="https://physics.weber.edu/schroeder/" target="_blank" rel="noopener" style="color:var(--cold);text-decoration:underline">Dan Schroeder</a>,
+      <a href="https://physics.weber.edu/" target="_blank" rel="noopener" style="color:var(--cold);text-decoration:underline">Physics Department</a>,
+      <a href="https://weber.edu/" target="_blank" rel="noopener" style="color:var(--cold);text-decoration:underline">Weber State University</a>;
+      full credit for the underlying fluid simulation goes to him. It has been extended here with an added
+      <strong style="color:var(--dim)">fluid–structure interaction (FSI)</strong> layer — the elastic flap that bends in the flow. Used with thanks, for educational purposes.
+    </p>
   </div>
 </section>
 
@@ -900,6 +909,11 @@ footer .mono b{color:var(--cold);font-weight:500}
    Lattice-Boltzmann D2Q9 (BGK) + elastic flap (Turek–Hron style),
    two-way coupled: flow forces bend the flap; the flap is rasterised
    back into the lattice as a moving no-slip boundary each step.
+
+   The lattice-Boltzmann method here is adapted from the
+   "Fluid Dynamics Simulation" by Dan Schroeder, Physics Department,
+   Weber State University — https://physics.weber.edu/schroeder/fluids/
+   Used with thanks for educational purposes.
    ================================================================ */
 (function(root){
 'use strict';
